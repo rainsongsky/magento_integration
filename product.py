@@ -650,11 +650,11 @@ class ProductPriceTier(osv.Model):
                 cursor, user, context['magento_store'], context=context
             )
             res[tier.id] = pricelist_obj.price_get(
-                cursor, user, [store.shop.pricelist_id.id], tier.product.id,
+                cursor, user, [store.pricelist.id], tier.product.id,
                 tier.quantity, context={
                     'uom': store.website.default_product_uom.id
                 }
-            )[store.shop.pricelist_id.id]
+            )[store.pricelist.id]
         return res
 
     _columns = dict(

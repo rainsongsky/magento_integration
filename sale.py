@@ -304,19 +304,19 @@ class Sale(osv.Model):
         store_view = store_view_obj.browse(
             cursor, user, context['magento_store_view'], context
         )
-        if not store_view.shop:
+        if not store_view.pricelist:
             raise osv.except_osv(
                 _('Not Found!'),
                 _(
-                    'Magento Store %s should have a shop configured.'
+                    'Magento Store %s should have a pricelist configured.'
                     % store_view.store.name
                 )
             )
-        if not store_view.shop.pricelist_id:
+        if not store_view.pricelist:
             raise osv.except_osv(
                 _('Not Found!'),
                 _(
-                    'Shop on store %s does not have a pricelist!'
+                    'Store %s does not have a pricelist!'
                     % store_view.store.name
                 )
             )
@@ -353,10 +353,9 @@ class Sale(osv.Model):
 
         sale_data = {
             'name': instance.order_prefix + order_data['increment_id'],
-            'shop_id': store_view.shop.id,
             'date_order': order_data['created_at'].split()[0],
             'partner_id': partner.id,
-            'pricelist_id': store_view.shop.pricelist_id.id,
+            'pricelist_id': store_view.pricelist.id,
             'currency_id': currency.id,
             'partner_invoice_id': partner_invoice_address.id,
             'partner_shipping_id': partner_shipping_address.id,

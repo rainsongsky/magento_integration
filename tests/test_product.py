@@ -600,7 +600,7 @@ class TestProduct(TestBase):
 
             pricelist_item_obj.create(txn.cursor, txn.user, {
                 'name': 'Test line',
-                'price_version_id': store.shop.pricelist_id.version_id[0].id,
+                'price_version_id': store.pricelist.version_id[0].id,
                 'product_id': product.id,
                 'min_quantity': 10,
                 'base': 1,

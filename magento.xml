@@ -323,9 +323,9 @@
                                 </h3>
                             </group>
                             <group>
-                                <label for="shop"/>
+                                <label for="pricelist"/>
                                 <h3>
-                                    <field name="shop" colspan="2"/>
+                                    <field name="pricelist" colspan="2"/>
                                 </h3>
                             </group>
                         </group>

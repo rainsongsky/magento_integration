@@ -222,7 +222,11 @@ class Partner(osv.Model):
         :param context: Application context.
         :return: Browse record of address created/found
         """
+        
+        """
         for address in parent.child_ids + [parent]:
+        """
+        for address in parent.child_ids:
             if self.match_address_with_magento_data(
                 cursor, user, address, address_data
             ):

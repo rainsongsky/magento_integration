@@ -56,7 +56,7 @@ class TestBase(unittest.TestCase):
         website_obj = POOL.get('magento.instance.website')
         store_obj = POOL.get('magento.website.store')
         store_view_obj = POOL.get('magento.store.store_view')
-        shop_obj = POOL.get('sale.shop')
+        pricelist_obj = POOL.get('product.pricelist')
         uom_obj = POOL.get('product.uom')
 
         # Create two instances
@@ -98,13 +98,13 @@ class TestBase(unittest.TestCase):
             'default_product_uom': self.uom_id,
         })
 
-        shop = shop_obj.search(txn.cursor, txn.user, [], context=txn.context)
+        pricelist = pricelist_obj.search(txn.cursor, txn.user, [], context=txn.context)
 
         self.store_id = store_obj.create(
             txn.cursor, txn.user, {
                 'name': 'Store1',
                 'website': self.website_id1,
-                'shop': shop[0],
+                'pricelist': pricelist[0],
             }, context=txn.context
         )
 

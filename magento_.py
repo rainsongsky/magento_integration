@@ -310,9 +310,9 @@ class WebsiteStore(osv.Model):
             'magento.instance.website', 'Website', required=True,
             readonly=True,
         ),
-        shop=fields.many2one(
-            'sale.shop', 'Sales Shop',
-            help="Imported sales for this store will go into this shop",
+        pricelist=fields.many2one(
+            'product.pricelist', 'Product Pricelist',
+            help="Imported sales for this store will use the pricelist",
         ),
         instance=fields.related(
             'website', 'instance', type='many2one',
@@ -399,12 +399,12 @@ class WebsiteStore(osv.Model):
                     # we donr have a product on tier, so we use the current
                     # product in loop for computing the price for this tier
                     price = pricelist_obj.price_get(
-                        cursor, user, [store.shop.pricelist_id.id],
+                        cursor, user, [store.pricelist.id],
                         magento_product.product.id,
                         tier.quantity, context={
                             'uom': store.website.default_product_uom.id
                         }
-                    )[store.shop.pricelist_id.id]
+                    )[store.pricelist.id]
 
                 price_data.append({
                     'qty': tier.quantity,
@@ -453,11 +453,11 @@ class WebsiteStoreView(osv.Model):
         company=fields.related(
             'store', 'company', type='many2one', relation='res.company',
             string='Company', readonly=True
-        ),
-        shop=fields.related(
-            'store', 'shop', type='many2one', relation='sale.shop',
-            string='Sales Shop', readonly=True,
-        ),
+        ), 
+        pricelist=fields.related(
+            'store', 'pricelist', type='many2one', relation='product.pricelist',
+            string='Product Pricelist', readonly=True,
+        ), 
         last_shipment_export_time=fields.datetime('Last Shipment Export Time'),
         export_tracking_information=fields.boolean(
             'Export tracking information', help='Checking this will make sure'
